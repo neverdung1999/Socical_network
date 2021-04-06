@@ -32,6 +32,7 @@ class UserController {
   async login(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
+    console.log("ahihiii");
 
     const user = await userModel.findOne({ email: email });
     if (!user) {

@@ -16,13 +16,7 @@ class menu extends Component {
               <Link to={"/"}>Trang chủ</Link>
             </li>
             <li className="active">
-              <Link to={"/login"}>Đăng nhập</Link>
-            </li>
-            <li className="active">
-              <Link to={"/register"}>Đăng ký</Link>
-            </li>
-            <li className="active">
-              <Link to={"/loginForm"}>Đăng nhập test</Link>
+              <Link to={"/loginForm"}>Đăng nhập</Link>
             </li>
           </ul>
         </div>

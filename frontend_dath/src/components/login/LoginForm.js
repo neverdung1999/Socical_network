@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import {
   TextField,
   Button,
@@ -7,6 +7,8 @@ import {
   makeStyles,
   Avatar,
 } from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab";
+
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { GoogleLogin } from "react-google-login";
@@ -14,6 +16,7 @@ import "./login.css";
 
 import { connect } from "react-redux";
 import * as Action from "../../redux/actions/index";
+import {Link} from "react-router-dom";
 
 const schema = yup.object().shape({
   email: yup
@@ -41,6 +44,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginForm = (props) => {
+  const [passwordMs, setPasswordMs] = useState({
+    status: false,
+    message: "",
+    severity: "",
+  });
+  const [emailMs, setEmailMs] = useState({
+    status: false,
+    message: "",
+    severity: "",
+  });
+
   const classes = useStyles();
   const {
     handleChange,
@@ -68,8 +82,15 @@ const LoginForm = (props) => {
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
-
-      props.loginUserRequest(values, setAllTouched, isValid);
+      const {  history  } = props;
+      props.loginUserRequest(
+        values,
+        setAllTouched,
+        isValid,
+        setPasswordMs,
+        setEmailMs,
+        history
+      );
     },
     [values, isValid]
   );
@@ -84,9 +105,30 @@ const LoginForm = (props) => {
         <Paper className={classes.paper}>
           <Avatar
             alt="Remy Sharp"
-            src="/static/images/avatar/1.jpg"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/1200px-Instagram_logo_2016.svg.png"
             className="center"
           />
+
+          <p style={{ color: "black", fontSize: "18px" }}>
+            Đăng nhập mạng xã hội lớn nhất Việt Nam
+          </p>
+
+          {emailMs.status ? (
+            <Alert
+              severity={emailMs.severity}
+              style={{ margin: "10px auto", fontSize: "15px" }}
+            >
+              {emailMs.message}
+            </Alert>
+          ) : null || passwordMs.status ? (
+            <Alert
+              severity={passwordMs.severity}
+              style={{ margin: "10px auto", fontSize: "15px" }}
+            >
+              {passwordMs.message}
+            </Alert>
+          ) : null}
+
           <form onSubmit={handleSubmit}>
             <TextField
               id="outlined-basic"
@@ -103,6 +145,7 @@ const LoginForm = (props) => {
               className="fadeIn second"
               fullWidth={true}
               size="small"
+              required={true}
             />
 
             <TextField
@@ -120,6 +163,7 @@ const LoginForm = (props) => {
               className="fadeIn second"
               fullWidth={true}
               size="small"
+              required={true}
             />
 
             <Button
@@ -129,11 +173,15 @@ const LoginForm = (props) => {
               fullWidth={true}
               size="large"
               style={{ margin: "10px auto" }}
+              disabled={
+                (touched.password && errors.password && true) ||
+                (touched.email && errors.emai && true)
+              }
             >
               Secondary
             </Button>
           </form>
-          <GoogleLogin
+          {/* <GoogleLogin
             clientId="835540304132-ejrq6rluhmiut5gbrpk3asovjn6ijdu2.apps.googleusercontent.com"
             buttonText="Login"
             onSuccess={responseGoogle}
@@ -141,7 +189,8 @@ const LoginForm = (props) => {
             cookiePolicy={"single_host_origin"}
             name="txtGoogle"
             classes="googleBtn"
-          />
+          /> */}
+          <p>Nếu chưa có tài khoản, <Link to="/register">Đăng ký ngay</Link></p>
         </Paper>
       </Grid>
     </div>
@@ -150,8 +199,24 @@ const LoginForm = (props) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    loginUserRequest: (values, setAllTouched, isValid) => {
-      dispatch(Action.LoginUserRequest(values, setAllTouched, isValid));
+    loginUserRequest: (
+      values,
+      setAllTouched,
+      isValid,
+      setPasswordMs,
+      setEmailMs,
+      history
+    ) => {
+      dispatch(
+        Action.LoginUserRequest(
+          values,
+          setAllTouched,
+          isValid,
+          setPasswordMs,
+          setEmailMs,
+          history
+        )
+      );
     },
   };
 };

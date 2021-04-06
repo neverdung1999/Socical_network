@@ -1,5 +1,4 @@
 import React from "react";
-import Login from "./components/login/login";
 import LoginForm from "./components/login/LoginForm";
 import Register from "./components/register/register";
 import Home from "./components/home/home";
@@ -12,19 +11,14 @@ const Routes = [
     main: () => <Home />,
   },
   {
-    path: "/login",
-    exact: true,
-    main: () => <Login />,
-  },
-  {
     path: "/loginForm",
     exact: true,
-    main: () => <LoginForm />,
+    main: ({ history }) => <LoginForm history={history} />,
   },
   {
     path: "/register",
     exact: true,
-    main: () => <Register />,
+    main: ({ history    }) => <Register history={history} />,
   },
   {
     path: "",
