@@ -1,0 +1,33 @@
+{
+  "name": "dath_social_network",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon --inspect src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neverdung1999/Socical_network.git"
+  },
+  "author": "minhDuc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neverdung1999/Socical_network/issues"
+  },
+  "homepage": "https://github.com/neverdung1999/Socical_network#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.2",
+    "mongoose-delete": "^0.5.3",
+    "mongoose-slug-generator": "^1.0.4",
+    "morgan": "^1.10.0"
+  }
+}
