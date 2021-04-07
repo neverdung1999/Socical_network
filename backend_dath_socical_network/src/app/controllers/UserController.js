@@ -78,12 +78,21 @@ class UserController {
     const In4friend = await userModel.findOne({ _id: idFriend });
 
     if (status == "choxacnhan") {
-      In4user.friend.push(idFriend);
-      In4friend.friend.push(idUser);
-      //đổ ra các dữ liệu có id không trùng nhau
-      In4user.friend = In4user.friend.filter(data => data.idFriend !== idFriend);
-      In4friend.friend = In4friend.friend.filter(
-        (data) => data.idFriend !== idUser
+      await userModel.updateOne(
+        { "information.idFriend": idFriend },
+        {
+          $set: {
+            "information.$.sendByMe": true,
+          },
+        }
+      );
+      await userModel.updateOne(
+        { "information.idFriend": idUser },
+        {
+          $set: {
+            "information.$.sendByMe": true,
+          },
+        }
       );
     }
 
@@ -91,12 +100,12 @@ class UserController {
       const user = {
         idFriend: idFriend,
         status: "guiloimoi",
-        // sendByMe: true,
+        sendByMe: false,
       };
       const friend = {
         idFriend: idUser,
         status: "choxacnhan",
-        // sendByMe: false,
+        sendByMe: false,
       };
       In4user.information.push(user);
       In4friend.information.push(friend);

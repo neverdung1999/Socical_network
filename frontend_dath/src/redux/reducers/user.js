@@ -71,7 +71,7 @@ const user = (state = initialState, action) => {
       try {
         if (message === "sign up successfully") {
           alert("Đăng ký thành công tài khoản");
-          action.history.push("/");
+          action.history.push("/loginForm");
         }
 
         if (message === "account already exist") {

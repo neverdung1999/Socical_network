@@ -6,7 +6,6 @@ const account = new Schema(
     name: { type: "string" },
     email: { type: "string" },
     password: { type: "string" },
-    friend: [String],
     information: [],
   },
   {

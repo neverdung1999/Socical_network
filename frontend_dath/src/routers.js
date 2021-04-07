@@ -1,7 +1,7 @@
 import React from "react";
 import LoginForm from "./components/login/LoginForm";
 import Register from "./components/register/register";
-import Home from "./components/home/home";
+import Home from "./components/home/Home";
 import NotFound from "./components/notFound/notFound";
 
 const Routes = [
